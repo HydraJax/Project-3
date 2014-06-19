@@ -1,0 +1,16 @@
+
+
+
+<% @events.each do |event| %>
+  Event: <%=event.event_name %>
+  Description: <%=event.description %>
+  Date: <%=event.date %>
+  Time: <%=event.time %>
+  Address:<%=event.address %><p></p><br>
+<% end %>
+
+<%= link_to("Make A New Event", new_event_path) %>
+
+    
+
+

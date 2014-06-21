@@ -3,7 +3,12 @@ class EventsController < ApplicationController
 before_action :authenticate_user!, only: [:edit, :update, :destroy, :new, :create]
 
   def index
+    @event = EventUser.all
     @events = Event.all
+  end
+
+  def my_events
+    @events = current_user.events.all
   end
 
   def show
@@ -12,6 +17,7 @@ before_action :authenticate_user!, only: [:edit, :update, :destroy, :new, :creat
 
   def new
     @event = Event.new
+
   end
 
   def create
@@ -21,12 +27,23 @@ before_action :authenticate_user!, only: [:edit, :update, :destroy, :new, :creat
   end
 
   def edit
+    @event = Event.find(params[:id])
+      # if @event.user_id != current_user.id
+    #    flash[:error]= "You don't have permission to do that"
+    #      redirect_to events_path
+    # end
   end
 
   def update
+    @event = Event.find(params[:id])
+    @event.update(event_params)
+    redirect_to event_path(@event)
   end
 
   def destroy
+    @event = Event.find_by_id(params[:id])
+    @event.destroy
+    redirect_to request.referer
   end
 
   private

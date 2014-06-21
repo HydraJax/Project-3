@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   root  'events#index'
 
   resources :events
+  resources :event_users
+  get 'my_events', to: 'events#my_events'
+
   # get 'events/show'
 
   # get 'events/new'

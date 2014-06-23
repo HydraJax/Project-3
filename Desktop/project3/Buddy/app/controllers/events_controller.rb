@@ -4,7 +4,7 @@ before_action :authenticate_user!, only: [:edit, :update, :destroy, :new, :creat
 
   def index
     @event = EventUser.all
-    @events = Event.all
+    @events = Event.all.order(created_at: :desc)
   end
 
   def my_events
@@ -49,7 +49,7 @@ before_action :authenticate_user!, only: [:edit, :update, :destroy, :new, :creat
   private
 
   def event_params
-    params.require(:event).permit(:event_name, :description, :address, :time, :date, :difficulty)
+    params.require(:event).permit(:event_name, :description, :address, :time, :date, :difficulty,:location)
   end
 
 end

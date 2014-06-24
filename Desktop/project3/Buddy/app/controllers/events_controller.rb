@@ -4,7 +4,7 @@ before_action :authenticate_user!, only: [:edit, :update, :destroy, :new, :creat
 
   def index
     @event = EventUser.all
-    @events = Event.all.order(created_at: :desc)
+    @events = Event.order(created_at: :desc).page(params[:page]).per(7)
   end
 
   def my_events
@@ -17,13 +17,18 @@ before_action :authenticate_user!, only: [:edit, :update, :destroy, :new, :creat
 
   def new
     @event = Event.new
-
   end
 
   def create
     @event = current_user.events.create(event_params)
-    redirect_to event_path(@event)
-    # @user_events = current_user.events
+    @user_events = current_user.events
+      if @event.save
+        flash[:notice] = "Your Event was created"
+         redirect_to event_path(@event)
+      else
+        flash[:notice] = "Your Event did not get created, retry !"
+         redirect_to new_event_path
+       end
   end
 
   def edit

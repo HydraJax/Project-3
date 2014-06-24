@@ -25,22 +25,34 @@ describe EventsController do
 
   end
   
-  describe "GET#show" do
-      it 'assigns the requested event to @events' do
+  describe "new page" do
+    it '' do
+
+
   end
-      it 'renders the :show template' do
+
+  describe "GET#show" do
+    it 'assigns the requested event to @events' do
+    end
+
+    it 'renders the :show template' do
       event =Event.create(event_name: Forgery(:lorem_ipsum).words(2, :random =>true), description: Forgery(:lorem_ipsum).words(2, :random =>true),address: Forgery(:lorem_ipsum).words(2, :random =>true),date: 12, time: 12)
       id = event.id
       get :show, id: id
     end
   end
   
-  # describe "GET#new" do
-  #   it 'should make a new event'
-  #   get :new, 
+  describe "POST#create" do
+    it 'redirects to the index page' do
 
-  # end
+      valid_attributes = {event_name: Forgery(:lorem_ipsum).words(2, :random =>true), description: Forgery(:lorem_ipsum).words(2, :random =>true),address: Forgery(:lorem_ipsum).words(2, :random =>true),date: 12, time: 12}
 
+      post :create,{:event => valid_attributes}
+      response.should redirect_to(assigns(:event))
 
+      # assigns is rspec language for seeing what is assigned to an instance variables in 
+
+    end
+  end
 
 end

@@ -1,5 +1,7 @@
 class Event < ActiveRecord::Base
 
+paginates_per 7
+
 geocoded_by :address
 after_validation :geocode
   

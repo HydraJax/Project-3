@@ -4,6 +4,8 @@
     <strong>Date:</strong><%= @event.date %>
     <strong>Time:</strong><%= @event.time %>
     <strong>Address:</strong><%= @event.address %><p></p><br>
+
+    <%=image_tag("http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=#{@event.latitude}%2C#{@event.longitude}")%>
 </p>
 
 
